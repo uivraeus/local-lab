@@ -1,0 +1,24 @@
+# https://github.com/twuni/docker-registry.helm
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: dev-ca
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  hosts:
+    - registry.192.168.128.11.sslip.io
+  tls:
+    - hosts:
+      - registry.192.168.128.11.sslip.io
+      secretName: registry-tls
+
+persistence:
+  enabled: true
+  deleteEnabled: true
+  size: 1Gi
+
+garbageCollect:
+  enabled: true
+  deleteUntagged: true
+  schedule: "0 * * * *" # once every hour
+

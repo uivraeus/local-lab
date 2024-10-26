@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+{
+	"name": "home-lab",
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		},
+		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+			"version": "latest",
+			"helm": "latest",
+			"minikube": "latest"
+		},
+		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {
+			"jqVersion": "latest",
+			"yqVersion": "4",
+			"gojqVersion": "none",
+			"xqVersion": "none",
+			"jaqVersion": "none"
+		},
+		"ghcr.io/devcontainers/features/terraform:1": {},
+		"ghcr.io/devcontainers/features/go:1": {}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh",
+	"postStartCommand": "${containerWorkspaceFolder}/infra/restart-existing-infra.sh",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"casualjim.gotemplate",
+				"ms-python.pylint"
+			]
+		}
+	}
+}
