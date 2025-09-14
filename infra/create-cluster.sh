@@ -24,10 +24,12 @@ echo "Creating cluster \"$cluster_name\"..."
 cluster_version=${CLUSTER_VERSION:-''}
 cluster_network=${CLUSTER_NETWORK:-'clusters-common'}
 cluster_ip=${CLUSTER_IP:?}
+cpus=${CLUSTER_CPUS:-'2'}
+memory=${CLUSTER_MEMORY:-'4g'}
 
 set -euxo pipefail
 
-minikube start -p $cluster_name --kubernetes-version=$cluster_version --network=$cluster_network --static-ip=$cluster_ip
+minikube start -p $cluster_name --kubernetes-version=$cluster_version --network=$cluster_network --static-ip=$cluster_ip --driver=docker --cpus=$cpus --memory=$memory
 minikube -p $cluster_name addons enable metrics-server
 minikube -p $cluster_name addons enable ingress
 #minikube -p $cluster_name addons enable volumesnapshots
