@@ -40,5 +40,17 @@
 				"ms-python.pylint"
 			]
 		}
+	},
+
+	// minikube exposes a lot of ephemeral ports (for each cluster) so disable port forwarding of these
+	// - https://containers.dev/implementors/json_reference/#general-properties
+	// - https://containers.dev/implementors/json_reference/#port-attributes
+	"portsAttributes": {
+		"32768-60999": {
+			"onAutoForward": "ignore"
+		}
+	},
+	"otherPortsAttributes": {
+		"onAutoForward": "silent"
 	}
 }
