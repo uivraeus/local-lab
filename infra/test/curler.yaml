@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: curler
+  
+spec:
+  containers:
+    - name: curler
+      image: curlimages/curl:8.16.0 
+      command: ["sleep", "3600"]
+      volumeMounts:
+          - name: trusted-ca
+            mountPath: /etc/ssl/certs/ca-certificates.crt
+            subPath: ca-certificates.crt
+          - name: trusted-ca
+            mountPath: /cacert.pem
+            subPath: ca-certificates.crt
+  volumes:
+    - name: trusted-ca
+      configMap:
+        name: my-trusted-ca
