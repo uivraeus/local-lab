@@ -16,7 +16,7 @@ CLUSTER_IP=192.168.128.11 EXISTS_EXIT_CODE=1 $SCRIPT_DIR/create-cluster.sh
 $SCRIPT_DIR/install-cert-manager.sh
 
 echo "Installing image registry..."
-helm repo add twuni https://helm.twun.io --force-update
+helm repo add twuni https://twuni.github.io/docker-registry.helm  --force-update
 helm --kube-context $CLUSTER_NAME  -n registry install registry --create-namespace \
   -f $SCRIPT_DIR/registry-values.yaml twuni/docker-registry
   
