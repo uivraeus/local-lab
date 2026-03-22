@@ -29,6 +29,9 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh",
 	"postStartCommand": "${containerWorkspaceFolder}/infra/restart-existing-infra.sh",
+	
+	// Forward Squid proxy port from the devcontainer to the VS Code client host.
+	"forwardPorts": [3128],
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -43,11 +46,16 @@
 		}
 	},
 
-	// minikube exposes a lot of ephemeral ports (for each cluster) so disable port forwarding of these
-	// - https://containers.dev/implementors/json_reference/#general-properties
-	// - https://containers.dev/implementors/json_reference/#port-attributes
 	"portsAttributes": {
+		// Give the forwarded proxy port a friendly label and notify when it is forwarded.
+		"3128": {
+			"label": "Squid Proxy",
+			"onAutoForward": "notify"
+		},
 		"32768-60999": {
+			// minikube exposes a lot of ephemeral ports (for each cluster) so disable port forwarding of these
+			// - https://containers.dev/implementors/json_reference/#general-properties
+			// - https://containers.dev/implementors/json_reference/#port-attributes
 			"onAutoForward": "ignore"
 		}
 	},

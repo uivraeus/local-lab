@@ -1,0 +1,1 @@
+function FindProxyForURL(u, h) { if (shExpMatch(h, "*.192.168.128.*.sslip.io")) return "PROXY 127.0.0.1:3128"; return "DIRECT"; }
