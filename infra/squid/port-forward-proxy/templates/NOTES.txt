@@ -1,0 +1,6 @@
+1. Establish a port-forward to the proxy via:
+  kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "port-forward-proxy.fullname" . }} {{ .Values.service.port }}
+2. Configure environment variable:
+  export HTTPS_PROXY=http://localhost:{{ .Values.service.port }}
+3. Run your tool, e.g.
+  terraform plan
