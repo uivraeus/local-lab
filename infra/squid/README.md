@@ -37,6 +37,34 @@ From repository root:
 
 This script removes any previous `squid-host` container and starts a fresh one.
 
+## PAC Files
+
+Two Proxy Auto-Config (PAC) files are provided:
+
+- `infra/squid/proxy.pac`
+  - JavaScript PAC function for clients that can load a local PAC file.
+  - Proxies only hosts matching `*.192.168.128.*.sslip.io` via `127.0.0.1:3128`.
+  - Sends all other traffic `DIRECT`.
+
+- `infra/squid/proxy.pac.url`
+  - A `data:` URL containing the same PAC content (base64-encoded).
+  - Useful when a client expects a PAC URL string instead of a local file path.
+
+### How To Use PAC
+
+Use one of these options depending on your client:
+
+- Local file PAC:
+  - Configure automatic proxy script with the absolute file path to `infra/squid/proxy.pac`.
+
+- Data URL PAC:
+  - Copy the full content of `infra/squid/proxy.pac.url` into the proxy auto-config URL field.
+
+Behavior summary:
+
+- Matching lab domains use `PROXY 127.0.0.1:3128`.
+- All non-matching domains use `DIRECT`.
+
 ## Client Usage
 
 Use HTTP scheme for the proxy URL, including HTTPS targets:
