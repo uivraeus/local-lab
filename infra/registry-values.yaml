@@ -15,7 +15,7 @@ ingress:
 persistence:
   enabled: true
   deleteEnabled: true
-  size: 1Gi
+  size: 4Gi
 
 garbageCollect:
   enabled: true
