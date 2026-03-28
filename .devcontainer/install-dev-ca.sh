@@ -10,7 +10,8 @@ echo "Setting up local dev CA cert..."
 if [ ! -f "$SCRIPT_DIR/ca-key.pem" ]; then
   echo "No existing CA cert detected, generating a new one..."
   openssl genrsa -out "$SCRIPT_DIR/ca-key.pem" 2048
-  openssl req -x509 -new -nodes -key "$SCRIPT_DIR/ca-key.pem" -sha256 -days 3650 -out "$SCRIPT_DIR/ca-cert.pem" -outform PEM -subj '/CN=MyDev Root CA/C=SE/ST=VGR/L=GBG/O=MyDev'
+  openssl req -x509 -new -nodes -key "$SCRIPT_DIR/ca-key.pem" -sha256 -days 3650 -out "$SCRIPT_DIR/ca-cert.pem" -outform PEM -subj '/CN=MyDev Root CA/C=SE/ST=VGR/L=GBG/O=MyDev' \
+    -addext "nameConstraints=critical,permitted;DNS:.sslip.io"
 fi
 
 # Trust dev CA in current distro
