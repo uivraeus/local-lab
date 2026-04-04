@@ -11,7 +11,8 @@ $SCRIPT_DIR/download-tools.sh
 # TODO: move to features
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -y \
-  bat
+  bat \
+  ripgrep
 
 "$SCRIPT_DIR/install-dev-ca.sh"
 
