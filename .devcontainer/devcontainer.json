@@ -1,13 +1,13 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 {
 	"name": "home-lab",
-	"image": "mcr.microsoft.com/devcontainers/base:noble",
+	"image": "mcr.microsoft.com/devcontainers/base:resolute",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"enableNonRootDocker": "true",
-			"moby": "true"
+			"moby": "false"
 		},
 		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
 			"version": "latest",
@@ -23,7 +23,9 @@
 		},
 		"ghcr.io/devcontainers/features/python:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
-		"ghcr.io/devcontainers/features/go:1": {}
+		"ghcr.io/devcontainers/features/go:1": {},
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		
 	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
@@ -41,7 +43,9 @@
 			"extensions": [
 				"streetsidesoftware.code-spell-checker",
 				"casualjim.gotemplate",
-				"ms-python.pylint"
+				"ms-python.pylint",
+				"amazonwebservices.aws-toolkit-vscode",
+				"anthropic.claude-code",
 			]
 		}
 	},
@@ -61,5 +65,12 @@
 	},
 	"otherPortsAttributes": {
 		"onAutoForward": "silent"
-	}
+	},
+	"mounts": [
+		"source=local-lab-claude-home,target=/home/vscode/.claude,type=volume", // Retain claude data accross container rebuilds
+		"source=local-lab-aws-home,target=/home/vscode/.aws,type=volume", // Retain AWS CLI config/sso/credentials cache across container rebuilds
+	],
+	"containerEnv": {
+		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude", // Make ~/.claude.json end up in persistent ~/.claude/ mount
+	},
 }
