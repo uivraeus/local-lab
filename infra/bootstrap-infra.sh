@@ -9,7 +9,7 @@ if ! docker network ls | grep clusters-common > /dev/null ; then
   docker network create clusters-common --subnet=192.168.128.0/24 --gateway=192.168.128.1
 fi
 
-export CLUSTER_VERSION=v1.35.1
+export CLUSTER_VERSION=v1.36.4
 export CLUSTER_NAME=infra-1
 CLUSTER_IP=192.168.128.11 EXISTS_EXIT_CODE=1 $SCRIPT_DIR/create-cluster.sh
 
