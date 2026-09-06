@@ -6,6 +6,10 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 printf "\n\n\n### APPENDED by postCreateCommand ###\n\n" >> ~/.bashrc
 cat ${SCRIPT_DIR}/bashrc_append >> ~/.bashrc
 
+# Named volumes (e.g. .claude, .aws) are created owned by root, so fix ownership
+# of the whole home dir to make them writable by the current user
+sudo chown -R "$(id -u):$(id -g)" "$HOME"
+
 $SCRIPT_DIR/download-tools.sh
 
 # TODO: move to features
